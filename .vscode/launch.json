@@ -2,21 +2,41 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C++ Launch (Windows)",
-            "type": "cppvsdbg",
+            "name": "C++ Launch",
+            "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/a.exe",
+            "program": "C:/Users/bcolpron/test1/a.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],
-            "externalConsole": false
+            "externalConsole": true,
+            "linux": {
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+            "windows": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "c:/MinGW/bin/gdb.exe"
+            }
         },
         {
-            "name": "C++ Attach (Windows)",
-            "type": "cppvsdbg",
+            "name": "C++ Attach",
+            "type": "cppdbg",
             "request": "attach",
-            "processId": "${command.pickProcess}"
+            "program": "${workspaceRoot}/a.exe",
+            "processId": "${command.pickProcess}",
+            "linux": {
+                "MIMode": "gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+            "windows": {
+                "MIMode": "gdb"
+            }
         }
     ]
 }
