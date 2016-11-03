@@ -21,6 +21,6 @@ public:
 int main(int, const char *[])
 {
     Widget w;
-
+    Widget w2 = w;
     return 0;
 }
