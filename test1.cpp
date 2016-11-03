@@ -1,5 +1,26 @@
-int main(int, const char*[])
+#include <iostream>
+#include <future>
+
+struct Blob { /*a stuff here */ };
+
+class Widget
 {
-    std::cout << "hello" << std::endl;
+    Blob* blob;
+public:
+    Widget()
+    {
+        blob = new Blob();
+    }
+    ~Widget()
+    {
+        delete blob;
+    }
+};
+
+
+int main(int, const char *[])
+{
+    Widget w;
+
     return 0;
 }
