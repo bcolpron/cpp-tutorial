@@ -20,6 +20,14 @@ public:
     {
         delete blob;
     }
+    Widget(const Widget& o)     // copy constructor
+    {
+        blob = new Blob(*o.blob);
+    }
+    Widget& operator=(const Widget& o)  // copy assignment operator
+    {
+        *blob = *o.blob;
+    }
 
     void say_my_name() { std::cout << "Hello, my name is " << blob->name << std::endl; }
 };
@@ -28,19 +36,7 @@ public:
 int main(int, const char *[])
 {
     Widget w;
-    Widget w2 = w;      // Bomb is set!
+    Widget w2 = w;      // deep-copy (as intended)
     w.say_my_name();
     return 0;
-
-//          _.-^^---....,,--
-//      _--                  --_
-//      <                        >)
-//      |     B O O O O M        |
-//      \._                   _./
-//          ```--. . , ; .--'''
-//              | |   |
-//           .-=||  | |=-.
-//           `-=#$%&%$#=-'
-//              | ;  :|
-//      _____.,-#%&$@%#&#~,._____ 
 }
