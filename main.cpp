@@ -10,29 +10,21 @@ struct Blob
 
 class Widget
 {
-    Blob* blob;
+    std::unique_ptr<Blob> blob;
 public:
     Widget()
     {
-        blob = new Blob();
-    }
-    ~Widget()
-    {
-        delete blob;
+        blob = std::make_unique<Blob>();
     }
 
     void say_my_name() { std::cout << "Hello, my name is " << blob->name << std::endl; }
-
-private:
-    Widget(const Widget& o);                // same effect as =deleter
-    Widget& operator=(const Widget& o);     // (pre-C++11 way)
 };
 
 
 int main(int, const char *[])
 {
     Widget w;
-    Widget w2 = w;      // error: 'Widget::Widget(const Widget&)' is private within this context
+    Widget w2 = w;      // error: use of deleted function 'Widget::Widget(const Widget&)'
     w.say_my_name();
     return 0;
 }
