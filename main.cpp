@@ -10,11 +10,11 @@ struct Blob
 
 class Widget
 {
-    std::unique_ptr<Blob> blob;
+    std::shared_ptr<Blob> blob;
 public:
     Widget()
     {
-        blob = std::make_unique<Blob>();
+        blob = std::make_shared<Blob>();
     }
 
     void say_my_name() { std::cout << "Hello, my name is " << blob->name << std::endl; }
@@ -24,7 +24,7 @@ public:
 int main(int, const char *[])
 {
     Widget w;
-    Widget w2 = w;      // error: use of deleted function 'Widget::Widget(const Widget&)'
+    Widget w2 = w;      // OK! (shallow copy of blob)
     w.say_my_name();
     return 0;
 }
