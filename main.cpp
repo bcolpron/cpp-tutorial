@@ -28,6 +28,7 @@ public:
 int main(int, const char *[])
 {
     Widget w;
+    Widget w2 = w;
     w.say_my_name();
     return 0;
 }
