@@ -20,18 +20,19 @@ public:
     {
         delete blob;
     }
-    
-    Widget(const Widget& o) = delete;
-    Widget& operator=(const Widget& o) = delete;
 
     void say_my_name() { std::cout << "Hello, my name is " << blob->name << std::endl; }
+
+private:
+    Widget(const Widget& o);                // same effect as =deleter
+    Widget& operator=(const Widget& o);     // (pre-C++11 way)
 };
 
 
 int main(int, const char *[])
 {
     Widget w;
-    Widget w2 = w;      // error: use of deleted function 'Widget::Widget(const Widget&)'
+    Widget w2 = w;      // error: 'Widget::Widget(const Widget&)' is private within this context
     w.say_my_name();
     return 0;
 }
