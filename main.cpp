@@ -28,7 +28,19 @@ public:
 int main(int, const char *[])
 {
     Widget w;
-    Widget w2 = w;
+    Widget w2 = w;      // Bomb is set!
     w.say_my_name();
     return 0;
+
+//          _.-^^---....,,--
+//      _--                  --_
+//      <                        >)
+//      |     B O O O O M        |
+//      \._                   _./
+//          ```--. . , ; .--'''
+//              | |   |
+//           .-=||  | |=-.
+//           `-=#$%&%$#=-'
+//              | ;  :|
+//      _____.,-#%&$@%#&#~,._____ 
 }
