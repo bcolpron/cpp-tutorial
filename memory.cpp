@@ -26,7 +26,7 @@ public:
 };
 
 
-int main(int, const char *[])
+int main2(int, const char *[])
 {
     Widget w;
     Widget w2 = w;  // deep-copy (as intended)
