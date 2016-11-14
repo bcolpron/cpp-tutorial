@@ -25,7 +25,10 @@ BlobFactory factory;
 
 int main(int, const char *[])
 {
-    factory.create_blob();      // Ah! No more leak
+    auto blob = factory.create_blob();
+
+    // convert for sharing
+    auto shared_blob = std::shared_ptr<IBlob>(std::move(blob));
 
     return 0;
 }
