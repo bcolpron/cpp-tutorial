@@ -18,14 +18,14 @@ struct Blob: IBlob
 
 struct BlobFactory
 {
-    IBlob* create_blob() { return new Blob(); }
+    std::unique_ptr<IBlob> create_blob() { return std::make_unique<Blob>(); }
 };
 
 BlobFactory factory;
 
 int main(int, const char *[])
 {
-    factory.create_blob();      // ALERT! Memory leak
+    factory.create_blob();      // Ah! No more leak
 
     return 0;
 }
