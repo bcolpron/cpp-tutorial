@@ -25,6 +25,7 @@ BlobFactory factory;
 
 int main(int, const char *[])
 {
+    factory.create_blob();      // ALERT! Memory leak
 
     return 0;
 }
