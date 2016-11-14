@@ -25,10 +25,7 @@ BlobFactory factory;
 
 int main(int, const char *[])
 {
-    auto blob = factory.create_blob();
-
-    // convert for sharing
-    auto shared_blob = std::shared_ptr<IBlob>(std::move(blob));
+    std::shared_ptr<IBlob> shared_blob(factory.create_blob());
 
     return 0;
 }
