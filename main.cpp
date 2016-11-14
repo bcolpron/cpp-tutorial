@@ -17,12 +17,22 @@ public:
     ContactId add(const Contact& c);
     Contact get(ContactId id) const;
     void update(ContactId id, const Contact& c);
-    void delete(ContactId id);
+    void remove(ContactId id);
 };
 
 int main(int, const char*[])
 {
     AddressBook book;
+
+    auto id = book.add(Contact{"Verbal Kint", "514-555-1234"});
+
+    auto guy = book.get(id);
+    assert(guy.name == "Verbal Kint");
+
+    guy.name = "Keyser Soze";
+    book.update(id, guy);
+
+    book.remove(id);
 
     return 0;
 }
