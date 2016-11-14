@@ -18,6 +18,8 @@ public:
     }
 
     void say_my_name() { std::cout << "Hello, my name is " << blob->name << std::endl; }
+
+    std::shared_ptr<Blob> get_blob() { return blob; }
 };
 
 
@@ -26,5 +28,8 @@ int main(int, const char *[])
     Widget w;
     Widget w2 = w;      // OK! (shallow copy of blob)
     w.say_my_name();
+
+    auto b = w.get_blob();
+
     return 0;
 }
