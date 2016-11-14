@@ -3,44 +3,28 @@
 #include <string>
 #include <thread>
 
-struct Blob
+struct IBlob
 {
-    std::string name = "Inigo Montoya";
+    virtual ~IBlob() {};
+};
 
-    void some_lenghty_process();
+struct Blob: IBlob
+{
+    ~Blob() override {}
+
+    std::string name = "Inigo Montoya";
     /* More stuff here */
 };
 
-class Widget
+struct BlobFactory
 {
-    std::shared_ptr<Blob> blob;
-public:
-    Widget()
-    {
-        blob = std::make_shared<Blob>();
-    }
-
-    void say_my_name() { std::cout << "Hello, my name is " << blob->name << std::endl; }
-
-    std::shared_ptr<Blob> get_blob() { return blob; }
+    IBlob* create_blob() { return new Blob(); }
 };
 
-void grab_and_spin(const std::shared_ptr<Blob>& blob)
-{
-    std::thread([=]
-    {
-        blob->some_lenghty_process();
-    }).detach();
-}
+BlobFactory factory;
 
 int main(int, const char *[])
 {
-    Widget w;
-    Widget w2 = w;      // OK! (shallow copy of blob)
-    w.say_my_name();
-
-    auto b = w.get_blob();
-    grab_and_spin(b);
 
     return 0;
 }
