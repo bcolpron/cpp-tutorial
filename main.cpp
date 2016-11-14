@@ -1,10 +1,13 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <thread>
 
 struct Blob
 {
-    std::string name = "Inigo Montoya"; 
+    std::string name = "Inigo Montoya";
+
+    void some_lenghty_process();
     /* More stuff here */
 };
 
@@ -22,6 +25,13 @@ public:
     std::shared_ptr<Blob> get_blob() { return blob; }
 };
 
+void grab_and_spin(const std::shared_ptr<Blob>& blob)
+{
+    std::thread([=]
+    {
+        blob->some_lenghty_process();
+    }).detach();
+}
 
 int main(int, const char *[])
 {
@@ -30,6 +40,7 @@ int main(int, const char *[])
     w.say_my_name();
 
     auto b = w.get_blob();
+    grab_and_spin(b);
 
     return 0;
 }
