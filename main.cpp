@@ -25,6 +25,13 @@ private:
     mutable std::mutex m_mutex;
 };
 
+ContactId AddressBook::add(const Contact& c)
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_contacts[m_sequence] = c;
+    return m_sequence++;
+}
+
 int main(int, const char*[])
 {
     AddressBook book;
