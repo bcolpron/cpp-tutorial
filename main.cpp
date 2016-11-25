@@ -18,6 +18,11 @@ public:
     Contact get(ContactId id) const;
     void update(ContactId id, const Contact& c);
     void remove(ContactId id);
+
+private:
+    std::map<ContactId, Contact> m_contacts;
+    ContactId m_sequence = 1;
+    mutable std::mutex m_mutex;
 };
 
 int main(int, const char*[])
