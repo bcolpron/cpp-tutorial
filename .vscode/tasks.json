@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "c:\\MinGW\\bin\\g++.exe",
     "isShellCommand": true,
-    "args": ["-g", "memory.cpp", "vector.cpp"],
+    "args": ["-g", "memory.cpp", "vector.cpp", "-I."],
     "showOutput": "always"
 }

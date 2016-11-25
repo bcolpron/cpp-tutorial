@@ -1,0 +1,13 @@
+namespace std
+{
+
+struct mutex {};
+
+
+template<class Mutex>
+struct lock_guard
+{
+    lock_guard(Mutex& m) {}
+};
+
+}
