@@ -42,6 +42,16 @@ Contact AddressBook::get(ContactId id) const
         throw std::out_of_range("not found");
 }
 
+void AddressBook::update(ContactId id, const Contact& c)
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    auto found = m_contacts.find(id);
+    if (found != m_contacts.end())
+        found->second = c;
+    else
+        throw std::out_of_range("not found");
+}
+
 int main(int, const char*[])
 {
     AddressBook book;
