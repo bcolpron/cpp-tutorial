@@ -19,6 +19,8 @@ public:
     void update(ContactId id, const Contact& c);
     bool remove(ContactId id);
 
+    void addOrUpdate(ContactId id, const Contact& c);
+
 private:
     std::map<ContactId, Contact> m_contacts;
     ContactId m_sequence = 1;
@@ -56,6 +58,11 @@ bool AddressBook::remove(ContactId id)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
     return m_contacts.erase(id) > 0;
+}
+
+void AddressBook::addOrUpdate(ContactId id, const Contact& c)
+{
+    // ???
 }
 
 int main(int, const char*[])
