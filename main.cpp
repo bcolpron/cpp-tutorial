@@ -17,7 +17,7 @@ public:
     ContactId add(const Contact& c);
     Contact get(ContactId id) const;
     void update(ContactId id, const Contact& c);
-    void remove(ContactId id);
+    bool remove(ContactId id);
 
 private:
     std::map<ContactId, Contact> m_contacts;
@@ -52,10 +52,10 @@ void AddressBook::update(ContactId id, const Contact& c)
         throw std::out_of_range("not found");
 }
 
-void AddressBook::remove(ContactId id)
+bool AddressBook::remove(ContactId id)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-    m_contacts.erase(id);
+    return m_contacts.erase(id) > 0;
 }
 
 int main(int, const char*[])
