@@ -52,6 +52,12 @@ void AddressBook::update(ContactId id, const Contact& c)
         throw std::out_of_range("not found");
 }
 
+void AddressBook::remove(ContactId id)
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_contacts.erase(id);
+}
+
 int main(int, const char*[])
 {
     AddressBook book;
