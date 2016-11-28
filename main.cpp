@@ -32,6 +32,12 @@ ContactId AddressBook::add(const Contact& c)
     return m_sequence++;
 }
 
+Contact AddressBook::get(ContactId id) const
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    return m_contacts[id];     // Wrong! (at 2 levels)
+}
+
 int main(int, const char*[])
 {
     AddressBook book;
