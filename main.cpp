@@ -63,11 +63,11 @@ bool AddressBook::remove(ContactId id)
 void AddressBook::addOrUpdate(ContactId id, const Contact& c)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-    auto found = m_contacts.find(id);
-    if (found != m_contacts.end())
-        found->second = c;
+    auto found = m_contacts.insert(std::make_pair(id, c));
+    if (found.second)
+        ; // inserted!
     else
-        m_contacts[id] = c;
+        found.first->second = c;
 }
 
 int main(int, const char*[])
