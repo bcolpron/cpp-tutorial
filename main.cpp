@@ -35,7 +35,11 @@ ContactId AddressBook::add(const Contact& c)
 Contact AddressBook::get(ContactId id) const
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-    return m_contacts[id];     // Wrong! (at 2 levels)
+    auto found = m_contacts.find(id);
+    if (found != m_contacts.end())
+        return found->second;
+    else
+        throw std::out_of_range("not found");
 }
 
 int main(int, const char*[])
