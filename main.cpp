@@ -2,6 +2,8 @@
 #include <cassert>
 #include <map>
 #include <thread>
+#include <iostream>
+#include <optional>
 
 struct Contact
 {
@@ -20,6 +22,7 @@ public:
     bool remove(ContactId id);
 
     void addOrUpdate(ContactId id, const Contact& c);
+    std::optional<Contact> find(ContactId id) const;
 
 private:
     std::map<ContactId, Contact> m_contacts;
@@ -70,6 +73,16 @@ void AddressBook::addOrUpdate(ContactId id, const Contact& c)
         found.first->second = c;
 }
 
+std::optional<Contact> AddressBook::find(ContactId id) const
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    auto found = m_contacts.find(id);
+    if (found != m_contacts.end())
+        return found->second;
+    else
+        return {};
+}
+
 int main(int, const char*[])
 {
     AddressBook book;
@@ -83,6 +96,13 @@ int main(int, const char*[])
     book.update(id, guy);
 
     book.remove(id);
+
+    auto found = book.find(id);
+    if (found) {
+        std::cout << "Found " << found->name << std::endl;
+    } else {
+        std::cout << "not found" << std::endl;
+    }
 
     return 0;
 }
