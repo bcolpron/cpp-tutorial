@@ -6,9 +6,9 @@
 
 void print(const std::vector<int>& v)
 {
-    for(int i=0; i < v.size(); ++i)
+    for(auto i=v.begin(); i != v.end(); ++i)
     {
-        std::cout << v[i] << " ";
+        std::cout << *i << " ";
     }
     std::cout << std::endl;
 }
