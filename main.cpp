@@ -16,5 +16,7 @@ int main(int, const char*[])
 
     v.clear();  // erase everything (preserves capacity)
 
+    v.shrink_to_fit();  // relinquish memory
+
     return 0;
 }
