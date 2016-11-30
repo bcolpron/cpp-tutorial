@@ -10,7 +10,9 @@ int main(int, const char*[])
     v.push_back(15);
     v.push_back(16);
 
-    // Removing elements off the vector 
+    // Removing elements off the vector
+
+    v.erase(v.begin()+3);   // erase the 4th element
 
     return 0;
 }
