@@ -12,14 +12,13 @@ int main(int, const char*[])
 
     // Let's talk about STL
 
-    auto found = std::find(begin(v), end(v), 42);
+    auto found = std::find_if(begin(v), end(v), [](int val) {
+        return val > 10;
+    });
+
     if (found != v.end())
     {
-        std::cout << "Found!" << std::endl;
-    }
-    else
-    {
-        std::cout << "Not found :(" << std::endl;
+        std::cout << "I found a value larger than 10: " << *found << std::endl;
     }
     
     return 0;
