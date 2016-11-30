@@ -12,7 +12,15 @@ int main(int, const char*[])
 
     // Let's talk about STL
 
-    std::sort(begin(v), end(v)); // meh
-
+    auto found = std::find(begin(v), end(v), 42);
+    if (found != v.end())
+    {
+        std::cout << "Found!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Not found :(" << std::endl;
+    }
+    
     return 0;
 }
