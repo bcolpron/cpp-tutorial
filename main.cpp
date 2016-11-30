@@ -11,6 +11,7 @@ int main(int, const char*[])
     v.push_back(16);
 
     // Print element #4 of v... 
+    std::cout << v[3] << std::endl;
 
     return 0;
 }
