@@ -4,13 +4,14 @@
 #include <algorithm>
 #include <iterator>
 
-// The pre-C++11 way
-void twice(std::vector<int>& v)
+// The post-C++11 way (with move semantic)
+std::vector<int> twice(std::vector<int> v)
 {
     for (int& i : v)
     {
         i *= 2;
     }
+    return v;
 }
 
 std::vector<int> returns_a_vector();
@@ -22,16 +23,12 @@ int main(int, const char*[])
     v.push_back(16);
 
     // mutating function
-    twice(v);
-    twice(v);
-    twice(v);   // cannot chain calls!
 
-    // Cannot pass a temporary
-    twice(returns_a_vector());  // ERROR: initialization of non-const reference
+    // Ah...
+    v = twice(twice(twice(std::move(v))));
 
-    // Solution: declare a local variable
-    var v2 = returns_a_vector();
-    twice(v2);
+    // handles temporary
+    twice(returns_a_vector());
 
     return 0;
 }
