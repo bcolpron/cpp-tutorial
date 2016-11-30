@@ -14,5 +14,7 @@ int main(int, const char*[])
 
     v.erase(v.begin()+3);   // erase the 4th element
 
+    v.clear();  // erase everything (preserves capacity)
+
     return 0;
 }
