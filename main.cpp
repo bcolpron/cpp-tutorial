@@ -11,6 +11,11 @@ int main(int, const char*[])
     v.push_back(16);
 
     // Inserting many elements
+    v.reserve(106);
+    for(auto i=0; i < 100; ++i)
+    {
+        v.push_back(i);
+    }
 
     return 0;
 }
