@@ -10,13 +10,7 @@ int main(int, const char*[])
     v.push_back(15);
     v.push_back(16);
 
-    // Removing elements off the vector
-
-    v.erase(v.begin()+3);   // erase the 4th element
-
-    v.clear();  // erase everything (preserves capacity)
-
-    v.shrink_to_fit();  // relinquish memory
+    // Inserting many elements
 
     return 0;
 }
