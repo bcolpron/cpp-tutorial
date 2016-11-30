@@ -15,6 +15,7 @@ int main(int, const char*[])
     std::cout << v.at(3) << std::endl;  // does bound checking!
     std::cout << *(v.begin() + 3) << std::endl;
     std::cout << *(begin(v) + 3) << std::endl;
+    std::cout << *(v.data() + 3) << std::endl;  // pointer arithmetic
 
     return 0;
 }
