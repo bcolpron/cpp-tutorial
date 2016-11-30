@@ -6,10 +6,7 @@
 
 void print(const std::vector<int>& v)
 {
-    std::for_each(begin(v), end(v), [] (int i)
-    {
-        std::cout << i << " ";
-    });
+    std::copy(begin(v), end(v), std::ostream_iterator<int>(std::cout, " "));
     std::cout << std::endl;
 }
 
