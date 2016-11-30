@@ -12,6 +12,7 @@ int main(int, const char*[])
 
     // Print element #4 of v... 
     std::cout << v[3] << std::endl;
+    std::cout << v.at(3) << std::endl;  // does bound checking!
 
     return 0;
 }
