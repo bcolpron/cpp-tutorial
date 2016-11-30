@@ -15,5 +15,7 @@ int main(int, const char*[])
     v.push_back(15);
     v.push_back(16);
 
+    legacy_function(v.data(), v.size());
+
     return 0;
 }
