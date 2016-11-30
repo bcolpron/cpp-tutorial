@@ -12,5 +12,7 @@ int main(int, const char*[])
 
     // Let's talk about STL
 
+    std::sort(begin(v), end(v)); // meh
+
     return 0;
 }
