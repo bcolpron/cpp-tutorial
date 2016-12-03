@@ -29,28 +29,15 @@ public:
 		    backend->reboot_device(params.at("device-id"));
 		    return 200;
         }
-        catch(const ConnectionError& e)
-        {
-        }
-        catch(const ServiceUnavailable& e)
-        {
-        }
         catch(const DeviceNotFound& e)
         {
+            return 404;
         }
-        catch(const OperationNotSupported& e)
+        catch(const std::exception& e)  // catches all of the previous exceptions
         {
+            std::cerr << "Exception in reboot_device: " << e.what() << std::endl;
+            return 500;
         }
-        catch(const OperationError& e)
-        {
-        }
-        catch(const std::out_of_range& e)
-        {
-        }
-        catch(const std::exception& e)
-        {
-        }
-        return 500;
 	}
 };
 
