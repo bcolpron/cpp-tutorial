@@ -24,9 +24,9 @@ public:
 	// One of many URI dispatched request handler
 	HttpStatusCode reboot_device(const Params& params)
 	{
-		backend->reboot_device(params.at("device-id"));
+		backend->reboot_device(params.at("device-id"));   //  at() can throw!
 		return 200;
-	}
+	}	// no response is sent if handler call results in an exception thrown!
 };
 
 class RemoteServerBackend: public IBackend
@@ -35,10 +35,10 @@ class RemoteServerBackend: public IBackend
 
 	void reboot_device(const std::string& id) override
 	{
-		ServerConnection("192.168.42.103")
-			.get_device_manager()
-			.find_device(id)
-			.perform_action("reboot");
+		ServerConnection("192.168.42.103")                // can throw
+			.get_device_manager()                         // can throw
+			.find_device(id)                              // can throw
+			.perform_action("reboot");                    // can throw
 	}
 };
 
