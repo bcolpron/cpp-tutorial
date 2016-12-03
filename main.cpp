@@ -35,6 +35,10 @@ class RemoteServerBackend: public IBackend
 
 	void reboot_device(const std::string& id) override
 	{
+		ServerConnection("192.168.42.103")
+			.get_device_manager()
+			.find_device(id)
+			.perform_action("reboot");
 	}
 };
 
