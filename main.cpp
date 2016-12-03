@@ -29,6 +29,14 @@ public:
 	}
 };
 
+class RemoteServerBackend: public IBackend
+{
+	~RemoteServerBackend() override {}
+
+	void reboot_device(const std::string& id) override
+	{
+	}
+};
 
 int main(int, const char*[])
 {
