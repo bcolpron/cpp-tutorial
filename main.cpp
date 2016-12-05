@@ -1,10 +1,11 @@
 #include <iostream>
+#include <functional>
 
 /////////////////////////////////////////////
 // API 
 /////////////////////////////////////////////
 
-typedef bool (*Progress) (float percent);
+typedef std::function<bool(float)> Progress;
 
 void long_running_task(Progress callback);
 
