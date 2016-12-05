@@ -36,6 +36,9 @@ private:
 int main(int, const char*[])
 {
     Timer timer;
-    long_running_task(std::bind(&Timer::report_progress, &timer, std::placeholders::_1));
+    long_running_task([&](float progress)
+    {
+        return timer.report_progress(progress);
+    });
     return 0;
 }
