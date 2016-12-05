@@ -13,11 +13,11 @@ void long_running_task(Progress callback);
 /////////////////////////////////////////////
 /////////////////////////////////////////////
 
-using TimePoint = std::chrono::time_point<std::chrono::system_clock>;
-
-struct Timer
+int main(int, const char*[])
 {
-    bool report_progress(float percent)
+    auto start = std::chrono::system_clock::now();
+
+    long_running_task([=](float percent)
     {
         auto elapsed
             = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -26,19 +26,7 @@ struct Timer
         std::cout << percent << "% elapsed in " << elapsed.count() << "ms" << std::endl;
 
         return true;
-    }
-
-private:
-    TimePoint start = std::chrono::system_clock::now();
-};
-
-
-int main(int, const char*[])
-{
-    Timer timer;
-    long_running_task([&](float progress)
-    {
-        return timer.report_progress(progress);
     });
+
     return 0;
 }
