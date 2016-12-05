@@ -1,5 +1,6 @@
 #include <iostream>
 #include <functional>
+#include <chrono>
 
 /////////////////////////////////////////////
 // API 
@@ -12,14 +13,29 @@ void long_running_task(Progress callback);
 /////////////////////////////////////////////
 /////////////////////////////////////////////
 
-bool my_callback(float percent)
+using TimePoint = std::chrono::time_point<std::chrono::system_clock>;
+
+struct Timer
 {
-    std::cout << percent << std::endl;
-    return true;
-}
+    bool report_progress(float percent)
+    {
+        auto elapsed
+            = std::chrono::duration_cast<std::chrono::milliseconds>(
+                std::chrono::system_clock::now() - start);
+
+        std::cout << percent << "% elapsed in " << elapsed.count() << "ms" << std::endl;
+
+        return true;
+    }
+
+private:
+    TimePoint start = std::chrono::system_clock::now();
+};
+
 
 int main(int, const char*[])
 {
-    long_running_task(&my_callback);
+    Timer timer;
+    long_running_task(std::bind(&Timer::report_progress, &timer, std::placeholders::_1));
     return 0;
 }
