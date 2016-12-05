@@ -17,7 +17,7 @@ int main(int, const char*[])
 {
     auto start = std::chrono::system_clock::now();
 
-    long_running_task([=](float percent)
+    auto callback = [=](float percent)
     {
         auto elapsed
             = std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -26,7 +26,9 @@ int main(int, const char*[])
         std::cout << percent << "% elapsed in " << elapsed.count() << "ms" << std::endl;
 
         return true;
-    });
+    };
+
+    long_running_task(callback);
 
     return 0;
 }
