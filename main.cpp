@@ -7,6 +7,9 @@
 
 struct NimporteQuoi
 {
+    NimporteQuoi() {}
+    NimporteQuoi(std::string n, double v): name(std::move(n)), value(v) {}
+    
     std::string name;
     double value;
 };
@@ -19,6 +22,8 @@ int main(int, const char*[])
     v.push_back(pi);
 
     v.push_back(NimporteQuoi{"e",  2.7183});
+
+    v.emplace_back("golden ration", 1.6180);
 
     return 0;
 }
