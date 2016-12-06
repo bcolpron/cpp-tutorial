@@ -10,16 +10,7 @@ int main(int, const char*[])
     v.push_back(15);
     v.push_back(16);
 
-    // Let's talk about STL
+    // Other vector goodies
 
-    auto found = std::find_if(begin(v), end(v), [](int val) {
-        return val > 10;
-    });
-
-    if (found != v.end())
-    {
-        std::cout << "I found a value larger than 10: " << *found << std::endl;
-    }
-    
     return 0;
 }
