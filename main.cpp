@@ -5,19 +5,15 @@
 #include <iterator>
 #include <cassert>
 
+struct NimporteQuoi
+{
+    std::string name;
+    double value;
+};
+
 int main(int, const char*[])
 {
-    std::vector<int> v = {23, 42, 4, 8};
-    v.push_back(15);
-    v.push_back(16);
-
-    // Other vector goodies
-
-    // vector is copy-able
-    std::vector<int> v2 = v;
-
-    // vectors are comparable
-    assert(v == v2);
+    std::vector<NimporteQuoi> v(10);  // pre-filled vector of 10 default-constructed elements
 
     return 0;
 }
