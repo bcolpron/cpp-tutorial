@@ -3,6 +3,7 @@
 #include <string>
 #include <algorithm>
 #include <iterator>
+#include <cassert>
 
 int main(int, const char*[])
 {
@@ -11,6 +12,12 @@ int main(int, const char*[])
     v.push_back(16);
 
     // Other vector goodies
+
+    // vector is copy-able
+    std::vector<int> v2 = v;
+
+    // vectors are comparable
+    assert(v == v2);
 
     return 0;
 }
