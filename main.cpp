@@ -27,15 +27,13 @@ struct Cow: Animal
 
 int main(int, const char *[])
 {
-    // Gaaah! For goodness sake, never, ever do this!!
-    std::vector<Animal*> animals;
-    animals.push_back(new Dog);
-    animals.push_back(new Cat);
-    animals.push_back(new Cow);
+    // Do this instead
+    std::vector<std::unique_ptr<Animal>> animals;
+    animals.push_back(std::make_unique<Dog>());
+    animals.push_back(std::make_unique<Cat>());
+    animals.push_back(std::make_unique<Cow>());
 
-    for(auto i : animals) std::cout << i->sound() << std::endl;
-
-    for(auto i : animals) delete i;
+    for(const auto& i : animals) std::cout << i->sound() << std::endl;
 
     return 0;
 }
