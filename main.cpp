@@ -6,10 +6,10 @@
 
 void print(const std::vector<int>& v)
 {
-    for(auto i=v.begin(); i != v.end(); ++i)
+    std::for_each(begin(v), end(v), [] (int i)
     {
-        std::cout << *i << " ";
-    }
+        std::cout << i << " ";
+    });
     std::cout << std::endl;
 }
 
