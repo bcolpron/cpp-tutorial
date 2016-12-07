@@ -28,15 +28,15 @@ struct Cow: Animal
 int main(int, const char *[])
 {
     // Do this instead
-    std::vector<std::unique_ptr<Animal>> animals;
-    animals.push_back(std::make_unique<Dog>());
-    animals.push_back(std::make_unique<Cat>());
-    animals.push_back(std::make_unique<Cow>());
+    std::vector<std::shared_ptr<Animal>> animals;
+    animals.push_back(std::make_shared<Dog>());
+    animals.push_back(std::make_shared<Cat>());
+    animals.push_back(std::make_shared<Cow>());
 
     for(const auto& i : animals) std::cout << i->sound() << std::endl;
 
-    // cannot copy, though
-    std::vector<std::unique_ptr<Animal>> animals2 = animals;     // error: use of deleted function 'std::unique_ptr<_Tp, _Dp>::unique_ptr
+    // copy allowed!
+    std::vector<std::shared_ptr<Animal>> animals2 = animals;
 
     return 0;
 }
