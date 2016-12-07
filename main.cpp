@@ -35,5 +35,8 @@ int main(int, const char *[])
 
     for(const auto& i : animals) std::cout << i->sound() << std::endl;
 
+    // cannot copy, though
+    std::vector<std::unique_ptr<Animal>> animals2 = animals;     // error: use of deleted function 'std::unique_ptr<_Tp, _Dp>::unique_ptr
+
     return 0;
 }
