@@ -3,12 +3,21 @@
 #include <string>
 #include <map>
 
+enum class ErrorCode
+{
+    OK,
+    DEVICE_NOT_FOUND,
+    CONNECTION_ERROR,
+    SERVICE_UNAVAILABLE,
+    UNKNOWN_ERROR
+};
+
 class IBackend
 {
 public:
 	virtual ~IBackend() {}
 
-	virtual void reboot_device(const std::string& id) = 0;
+	virtual ErrorCode reboot_device(const std::string& id) = 0;
 };
 
 class WebServiceImpl
@@ -24,18 +33,18 @@ public:
 	// One of many URI dispatched request handler
 	HttpStatusCode reboot_device(const Params& params)
 	{
-        try
+        auto ec = backend->reboot_device(params.at("device-id"));
+        if (ec == ErrorCode::OK)
         {
-		    backend->reboot_device(params.at("device-id"));
 		    return 200;
         }
-        catch(const DeviceNotFound& e)
+        else if (ec == ErrorCode::DEVICE_NOT_FOUND)
         {
             return 404;
         }
-        catch(const std::exception& e)  // catches all of the previous exceptions
+        else
         {
-            std::cerr << "Exception in reboot_device: " << e.what() << std::endl;
+            std::cerr << "Failed with error code " << ec << std::endl;
             return 500;
         }
 	}
@@ -45,12 +54,41 @@ class RemoteServerBackend: public IBackend
 {
 	~RemoteServerBackend() override {}
 
-	void reboot_device(const std::string& id) override
+	ErrorCode reboot_device(const std::string& id) override
 	{
-		ServerConnection("192.168.42.103")
-			.get_device_manager()
-			.find_device(id)
-			.perform_action("reboot");
+        ServerConnection conn;
+		FooResult e = conn.connect("192.168.42.103");
+        if (e != FOO_SUCCESS)
+        {
+            return ErrorCode::CONNECTION_ERROR;
+        }
+
+        DeviceManager* dm = conn.get_device_manager();
+        if (!dm)
+        {
+            if (conn.get_last_error() == FOO_SERVICE_UNAVAILABLE)
+            {
+                return ErrorCode::SERVICE_UNAVAILABLE;
+            }
+            else
+            {
+                return ErrorCode::UNKNOWN_ERROR;
+            }
+        }
+
+        Device* dev = dm->find_device(id);
+        if (!dev)
+        {
+            return ErrorCode::DEVICE_NOT_FOUND;
+        }
+
+		Command result = dev.perform_action("reboot");
+        if (e != COMMAND_SUCCESS)
+        {
+            return convert_to_backend_error_code(result);
+        }
+
+        return ErrorCode::OK;   // finally
 	}
 };
 
