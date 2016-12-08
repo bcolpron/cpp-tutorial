@@ -10,4 +10,12 @@ struct lock_guard
     lock_guard(Mutex& m) {}
 };
 
+struct thread
+{
+    template<class F>
+    thread(F){}
+
+    void detach() {}
+};
+
 }
