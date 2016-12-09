@@ -9,7 +9,7 @@ struct Alice
 
 struct Bob
 {
-    explicit Bob(std::shared_ptr<Alice> a): alice(std::move(a)){}
+    explicit Bob(const std::shared_ptr<Alice>& a) { this.alice = a; }
 
     void greetings() { alice->hello(); }
 
@@ -19,7 +19,7 @@ private:
 
 void foobar()
 {
-    auto alice = std::make_shared<Alice>();
+    std::shared_ptr<Alice> alice(new Alice());
 
     Bob bob(alice);
 
