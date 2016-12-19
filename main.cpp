@@ -1,4 +1,7 @@
-// In AddressBook.h  /////////////////////////////////
+// In AddressBook.h /////////////////////////////////
+#include <string>
+#include <map>
+#include <thread>
 
 struct Contact
 {
@@ -22,7 +25,6 @@ private:
 };
 
 // In AddressBook.cpp ////////////////////////////////
-
 ContactId AddressBook::add(Contact c)
 {
     std::lock_guard<std::mutex> lock(m_mutex);
@@ -35,10 +37,3 @@ const Contact& AddressBook::get(ContactId id) const
     std::lock_guard<std::mutex> lock(m_mutex);
     return m_contacts[id];
 }
-
-/* ... */
-
-// Ce code est-il valide (i.e. exempt de bug) ?
-
-
-
