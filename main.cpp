@@ -23,3 +23,23 @@ private:
     ContactId m_sequence = 1;
     mutable std::mutex m_mutex;
 };
+
+// In AddressBook.cpp ////////////////////////////////
+ContactId AddressBook::add(Contact c)
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_contacts[m_sequence] = std::move(c);
+    return m_sequence++;
+}
+
+const Contact& AddressBook::get(ContactId id) const
+{
+    std::lock_guard<std::mutex> lock(m_mutex);
+    return m_contacts[id];
+}
+
+int main(int, const char*[])
+{
+    std::cout << "hello" << std::endl;
+    return 0;
+}
