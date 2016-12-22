@@ -1,4 +1,7 @@
 #include <iostream>
+#include <string>
+#include <map>
+#include <thread>
 
 int main(int, const char*[])
 {
