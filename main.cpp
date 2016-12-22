@@ -3,11 +3,23 @@
 #include <map>
 #include <thread>
 
-int main(int, const char*[])
+struct Contact
 {
-    std::cout << "hello" << std::endl;
-    
-    
-    
-    return 0;
-}
+    std::string name;
+    std::string phone;
+};
+
+using ContactId = unsigned int;
+
+class AddressBook
+{
+public:
+    ContactId add(Contact c);
+    const Contact& get(ContactId id) const;
+    void update(ContactId id, Contact c);
+    bool remove(ContactId id);
+private:
+    std::map<ContactId, Contact> m_contacts;
+    ContactId m_sequence = 1;
+    mutable std::mutex m_mutex;
+};
