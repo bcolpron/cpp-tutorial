@@ -35,7 +35,7 @@ ContactId AddressBook::add(Contact c)
 const Contact& AddressBook::get(ContactId id) const
 {
     std::lock_guard<std::mutex> lock(m_mutex);
-    return m_contacts[id];
+    return m_contacts.at(id);
 }
 
 int main(int, const char*[])
