@@ -3,14 +3,15 @@
 #include <memory>
 #include <vector>
 
-struct Object
+struct Object    // Generic 'Object' type definition
 {
     virtual ~Object() {}
     virtual std::string to_string()const=0;
 };
+using ObjectPtr = std::shared_ptr<Object>;
 
-template<class T>
-struct ObjectImpl: Object
+template<class T>  
+struct ObjectImpl: Object  // Concrete implementation
 {
     template<class... Args> ObjectImpl(Args&&... args): m_value(args...) {}
 
@@ -25,18 +26,18 @@ private:
 };
 
 template<class T, class... Args>
-std::unique_ptr<ObjectImpl<T>> make_object(Args&&... args)
+auto make_object(Args&&... args)  // helper function to build 'Object' instances
 {
-    return std::make_unique<ObjectImpl<T>>(args...);
+    return std::make_shared<ObjectImpl<T>>(args...);
 }
 
 int main(int, const char*[])
 {
-    std::vector<std::unique_ptr<Object>> my_list;
-
-    my_list.push_back(make_object<int>(42));
-    my_list.push_back(make_object<double>(1.1));
-    my_list.push_back(make_object<std::string>("hello"));
+    std::vector<ObjectPtr> my_list = {   
+        make_object<int>(42),
+        make_object<double>(1.1),
+        make_object<std::string>("hello")
+    };
 
     for (auto&& i : my_list)
     {
