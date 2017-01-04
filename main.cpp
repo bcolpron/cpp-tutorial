@@ -16,11 +16,11 @@ namespace foo::bar
 	class EventServiceConnection
 	{
 	public:
-		EventServiceConnection(std::string_view url); // connect to remote service
+		explicit EventServiceConnection(std::string_view url); // connect to remote service 
 
-		void submit_event(Event e); // push a new event to service
+		void submit_event(Event e);                            // push a new event to the service
 
-		std::optional<Event> get_next_event(); // non-blocking request for event
+		std::optional<Event> get_next_event();                 // non-blocking query for available event
 	};
 }
 
@@ -42,3 +42,7 @@ void main_loop()
 		}
 	}
 }
+
+// Question #1: Can you spot the 6 C++17 novelties in this code?
+// (Hint: 3 new language features, 3 new standard library features)
+// Question #2: Can you spot the potential problem?
