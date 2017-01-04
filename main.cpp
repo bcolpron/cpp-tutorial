@@ -13,7 +13,7 @@ using ObjectPtr = std::shared_ptr<Object>;
 template<class T>  
 struct ObjectImpl: Object  // Concrete implementation
 {
-    template<class... Args> ObjectImpl(Args&&... args): m_value(args...) {}
+    template<class... Args> ObjectImpl(Args&&... args): m_value(std::forward<Args...>(args)...) {}
 
     std::string to_string() const override
     {
@@ -28,7 +28,7 @@ private:
 template<class T, class... Args>
 auto make_object(Args&&... args)  // helper function to build 'Object' instances
 {
-    return std::make_shared<ObjectImpl<T>>(args...);
+    return std::make_shared<ObjectImpl<T>>(std::forward<Args...>(args)...);
 }
 
 int main(int, const char*[])
