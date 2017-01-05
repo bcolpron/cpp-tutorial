@@ -43,6 +43,8 @@ void main_loop()
 	}
 }
 
+//            ** HAPPY NEW Standard C++17 YEAR **
+//
 // Question #1: Can you spot the 6 C++17 novelties in this code?
-// (Hint: 3 new language features, 3 new standard library features)
+//  (Hint: 3 new language features, 3 new standard library features)
 // Question #2: Can you spot the potential problem?
